@@ -13,6 +13,8 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from flask_gravatar import Gravatar
 from forms import CreatePostForm, RegistrationForm
 
+
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 ckeditor = CKEditor(app)
@@ -207,7 +209,7 @@ def comment():
 
 
 @app.route("/new-post", methods=['GET', 'POST'])
-@admin_only
+@login_required
 def add_new_post():
     form = CreatePostForm()
     if form.validate_on_submit():
