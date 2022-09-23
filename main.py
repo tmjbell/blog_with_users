@@ -22,7 +22,6 @@ db_url = getenv("SQL_DB")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secret
-#app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
@@ -70,9 +69,7 @@ class Comment(db.Model):
     parent_post = relationship("BlogPost", back_populates="comments")
     text = db.Column(db.Text, nullable=False)
 
-
-db.create_all()
-
+#db.create_all()
 
 class LoginForm(FlaskForm):
     email = StringField('Your email', validators=[DataRequired()])
@@ -99,7 +96,6 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
-
 #Create admin-only decorator
 def admin_only(f):
     @wraps(f)
@@ -120,7 +116,6 @@ def load_user(user_id):
 @app.route('/')
 def get_all_posts():
     posts = BlogPost.query.all()
-
     return render_template("index.html", logged_in=current_user.is_authenticated, all_posts=posts)
 
 
@@ -264,8 +259,6 @@ def delete_post(post_id):
     db.session.delete(post_to_delete)
     db.session.commit()
     return redirect(url_for('get_all_posts'))
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
