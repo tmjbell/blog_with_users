@@ -12,13 +12,11 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_gravatar import Gravatar
 from forms import CreatePostForm, RegistrationForm
-from os import getenv
-from dotenv import load_dotenv
+import os
 
 
-load_dotenv("C:/Users/Tim/PycharmProjects/secrets.env")
-secret = getenv("FLASK_SECRET")
-db_url = getenv("SQL_DB")
+secret = os.environ.get("FLASKSECRET")
+db_url = os.environ.get("SQLDB")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secret
