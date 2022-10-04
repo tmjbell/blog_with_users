@@ -16,17 +16,17 @@ from os import getenv
 from dotenv import load_dotenv
 
 
-FLASK_SECRET='8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
-SQL_DB='sqlite:///blog.db'
-
+load_dotenv("C:/Users/Tim/PycharmProjects/secrets.env")
+secret = getenv("FLASK_SECRET")
+db_url = getenv("SQL_DB")
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = FLASK_SECRET
+app.config['SECRET_KEY'] = secret
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = SQL_DB
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
